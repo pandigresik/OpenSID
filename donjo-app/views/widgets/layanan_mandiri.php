@@ -66,17 +66,20 @@ if(!isset($_SESSION['mandiri']) OR $_SESSION['mandiri']<>1){
     <td align="center" valign="middle">:</td>
     <td >&nbsp;&nbsp;<?php echo $penduduk['no_kk']?></td>
   </tr>
-  <tr>
-    <td colspan="3"><h4><a href="<?php echo site_url();?>first/mandiri/1/1" class=""><button type="button" class="btn btn-primary btn-block">PROFIL</button></a> </h4></td>
+  <tr style="border-bottom:1px solid #111;">
+    <td><h4><a href="<?php echo site_url();?>first/mandiri/1/1" class="">Profil Ku </a> </h4></td><td></td>
   </tr>
-  <tr>
-    <td colspan="3"><h4><a href="<?php echo site_url();?>first/mandiri/1/2" class=""><button type="button" class="btn btn-primary btn-block">LAYANAN</button></a> </h4></td>
+  <tr style="border-bottom:1px solid #111;">
+    <td><h4><a href="<?php echo site_url();?>first/mandiri/1/2" class="">Layanan </a> </h4></td><td></td>
   </tr>
-  <tr>
-    <td colspan="3"><h4><a href="<?php echo site_url();?>first/mandiri/1/3" class=""><button type="button" class="btn btn-primary btn-block">LAPOR</button></a> </h4></td>
+  <tr style="border-bottom:1px solid #111;">
+    <td><h4><a href="<?php echo site_url();?>first/mandiri/1/3" class="">Lapor </a> </h4></td><td></td>
   </tr>
-  <tr>
-    <td colspan="3"><h4><a href="<?php echo site_url();?>first/logout"  class=""><button type="button" class="btn btn-danger btn-block">KELUAR</button></a></h4></td>
+  <tr style="border-bottom:1px solid #111;">
+    <td><h4><a href="<?php echo site_url();?>first/mandiri/1/4" class="">Bantuan </a> </h4></td><td></td>
+  </tr>
+  <tr style="border-bottom:1px solid #111;">
+    <td><h4><a href="<?php echo site_url();?>first/logout"  class=""> Keluar</a></h4></td><td></td>
   </tr>
 </table>
   </div>
@@ -132,4 +135,3 @@ if(!isset($_SESSION['mandiri']) OR $_SESSION['mandiri']<>1){
 
 }
 ?>
-
