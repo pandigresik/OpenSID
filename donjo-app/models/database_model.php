@@ -9,7 +9,8 @@
     '2.6' => array('migrate' => 'migrasi_26_ke_27','nextVersion' => '2.7'),
     '2.7' => array('migrate' => 'migrasi_27_ke_28','nextVersion' => '2.8'),
     '2.8' => array('migrate' => 'migrasi_28_ke_29','nextVersion' => '2.9'),
-    '2.9' => array('migrate' => 'migrasi_29_ke_210','nextVersion' => NULL)
+    '2.9' => array('migrate' => 'migrasi_29_ke_210','nextVersion' => '2.10'),
+    '2.10' => array('migrate' => 'migrasi_210_ke_211','nextVersion' => NULL)
   );
 
   function __construct(){
@@ -19,6 +20,7 @@
     $this->load->dbforge();
     $this->load->model('folder_desa_model');
     $this->load->model('surat_master_model');
+    $this->load->model('analisis_import_model');
   }
 
   function cek_engine_db() {
@@ -135,6 +137,72 @@
     $this->migrasi_27_ke_28();
     $this->migrasi_28_ke_29();
     $this->migrasi_29_ke_210();
+    $this->migrasi_210_ke_211();
+  }
+
+  function migrasi_210_ke_211(){
+    // Tambah kolom jenis untuk analisis_master
+    $fields = array();
+    if (!$this->db->field_exists('jenis', 'analisis_master')) {
+      $fields['jenis'] = array(
+          'type' => 'tinyint',
+          'constraint' => 2,
+          'null' => FALSE,
+          'default' => 2 // bukan bawaan sistem
+      );
+    }
+    $this->dbforge->add_column('analisis_master', $fields);
+    // Impor analisis Data Dasar Keluarga kalau belum ada.
+    // Ubah versi pra-rilis yang sudah diganti menjadi non-sistem
+    $ddk_lama = $this->db->where('kode_analisis','DDKPD')->where('jenis',1)
+      ->get('analisis_master')->row();
+    if($ddk_lama){
+      $this->db->where('id',$ddk_lama->id)
+      ->update('analisis_master',array('jenis' => 2, 'nama' => '[kadaluarsa] '.$ddk_lama->nama));
+    }
+    $query = $this->db->where('kode_analisis','DDK02')
+      ->get('analisis_master')->result_array();
+    if(count($query) == 0){
+      $file_analisis = FCPATH . 'assets/import/analisis_DDK_Profil_Desa.xls';
+      $this->analisis_import_model->import_excel($file_analisis,'DDK02',$jenis=1);
+    }
+    // Impor analisis Data Anggota Keluarga kalau belum ada
+    // Ubah versi pra-rilis yang sudah diganti menjadi non-sistem
+    $dak_lama = $this->db->where('kode_analisis','DAKPD')->where('jenis',1)
+      ->get('analisis_master')->row();
+    if($dak_lama){
+      $this->db->where('id',$dak_lama->id)
+      ->update('analisis_master',array('jenis' => 2, 'nama' => '[kadaluarsa] '.$dak_lama->nama));
+    }
+    $dak = $this->db->where('kode_analisis','DAK02')
+      ->get('analisis_master')->row();
+    if(empty($dak)){
+      $file_analisis = FCPATH . 'assets/import/analisis_DAK_Profil_Desa.xls';
+      $id_dak = $this->analisis_import_model->import_excel($file_analisis,'DAK02',$jenis=1);
+    } else $id_dak = $dak->id;
+    // Tambah kolom is_teks pada analisis_indikator
+    $fields = array();
+    if (!$this->db->field_exists('is_teks', 'analisis_indikator')) {
+      $fields['is_teks'] = array(
+          'type' => 'tinyint',
+          'constraint' => 1,
+          'null' => FALSE,
+          'default' => 0 // isian pertanyaan menggunakan kode
+      );
+    }
+    $this->dbforge->add_column('analisis_indikator', $fields);
+    // Ubah pertanyaan2 DAK profil desa menggunakan teks
+    $pertanyaan = array(
+      'Cacat Fisik',
+      'Cacat Mental',
+      'Kedudukan Anggota Keluarga sebagai Wajib Pajak dan Retribusi',
+      'Lembaga Pemerintahan Yang Diikuti Anggota Keluarga',
+      'Lembaga Kemasyarakatan Yang Diikuti Anggota Keluarga',
+      'Lembaga Ekonomi Yang Dimiliki Anggota Keluarga'
+    );
+    $list_pertanyaan = sql_in_list($pertanyaan);
+    $this->db->where('id_master',$id_dak)->where("pertanyaan in($list_pertanyaan)")
+      ->update('analisis_indikator',array('is_teks' => 1));
   }
 
   function migrasi_29_ke_210(){
@@ -1890,6 +1958,12 @@
     // relational constraint. Isi inventaris akan terhapus secara otomatis
     // pada saat menghapus isi jenis_barang.
     $this->db->query('DELETE FROM jenis_barang WHERE 1');
+    // Tambahkan kembali Analisis DDK Profil Desa dan Analisis DAK Profil Desa
+    $file_analisis = FCPATH . 'assets/import/analisis_DDK_Profil_Desa.xls';
+    $this->analisis_import_model->import_excel($file_analisis,'DDK02',$jenis=1);
+    $file_analisis = FCPATH . 'assets/import/analisis_DAK_Profil_Desa.xls';
+    $this->analisis_import_model->import_excel($file_analisis,'DAK02',$jenis=1);
+
     $_SESSION['success'] = 1;
   }
 
