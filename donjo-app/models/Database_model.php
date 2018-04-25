@@ -25,11 +25,10 @@
   }
 
   function cek_engine_db() {
-		$db_debug = $this->db->db_debug; //save setting
 		$this->db->db_debug = FALSE; //disable debugging for queries
 
       $query = $this->db->query("SELECT `engine` FROM INFORMATION_SCHEMA.TABLES WHERE table_schema= '". $this->db->database ."' AND table_name = 'user'");
-      if(!$this->db->_error_number()) {
+      if($this->db->error()['code'] != 0) {
       	$this->engine = $query->row()->engine;
       }
 
@@ -89,6 +88,7 @@
       'value' => $versi
     );
     $this->db->where(array('key'=>'current_version'))->update('setting_aplikasi',$newVersion);
+	 $_SESSION['success'] = 1;
   }
 
   private function getCurrentVersion(){
