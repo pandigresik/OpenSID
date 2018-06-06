@@ -54,8 +54,6 @@
             };
             //Menambahkan poligon ke marker
             semua_marker.push(turf.polygon(daerah_desa, {content: "Wilayah Desa", style: style_polygon}))
-            //Menambahkan point kantor desa
-            semua_marker.push(turf.point([<?=$desa['lng'].",".$desa['lat']?>], {content: "Kantor Desa"}))
         <?php endif; ?>
 
         //WILAYAH ADMINISTRATIF - DUSUN RW RT
@@ -198,7 +196,6 @@
                 onEachFeature: function (feature, layer) {
                     //Menampilkan pesan berisi content pada saat diklik
                     layer.bindPopup(feature.properties.content);
-                    layer.bindTooltip(feature.properties.content);
                 },
                 //Method untuk menambahkan style ke polygon dan line
                 style: function(feature){
@@ -208,9 +205,7 @@
                 },
                 //Method untuk menambahkan style ke point (titik marker)
                 pointToLayer: function (feature, latlng) {
-                    if(feature.properties.style){
-                        return L.marker(latlng, {icon: feature.properties.style});
-                    }else return L.marker(latlng);
+                    return L.marker(latlng, {icon: feature.properties.style});
                 }
             }).addTo(mymap);
     

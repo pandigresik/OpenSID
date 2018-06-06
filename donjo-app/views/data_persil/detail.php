@@ -46,18 +46,18 @@
 
 <?php
 
-if($persil_detail['jenis_pemilik'] != '2'){
+if($pemilik){
 	echo "
 	<div class=\"form-group\">
 		<fieldset>
 			<legend>Data Pemilik</legend>
 			<dl>
 				<dt>Nama Penduduk</dt>
-					<dd>: ".$persil_detail["namapemilik"]."</dd>
+					<dd>: ".$pemilik["nama"]."</dd>
 				<dt>NIK</dt>
-					<dd>: ".$persil_detail["nik"]."</dd>
+					<dd>: ".$pemilik["nik"]."</dd>
 				<dt>Alamat</dt>
-					<dd>: RT ".$persil_detail["rt"]." / RT ".$persil_detail["rw"]." - ".strtoupper($persil_detail["dusun"])."</dd>
+					<dd>: RT ".$pemilik["rt"]." / RT ".$pemilik["rw"]." - ".strtoupper($pemilik["dusun"])."</dd>
 			</dl>
 		</fieldset>
 	</div>
@@ -71,7 +71,7 @@ if($persil_detail['jenis_pemilik'] != '2'){
 				<dt>NAMA PEMILIK</dt>
 					<dd>: ".$persil_detail["namapemilik"]."</dd>
 				<dt>ALAMAT PEMILIK</dt>
-					<dd>: ".$persil_detail["alamat_luar"]."</dd>
+					<dd>: ".$persil_detail["alamat_ext"]."</dd>
 			</dl>
 		</fieldset>
 	</div>
