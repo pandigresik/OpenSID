@@ -282,7 +282,7 @@ class Penduduk_model extends MY_Model {
 		$sql_mode = $this->db->query('SELECT @@sql_mode')->row_array()['@@sql_mode'];
 		$temp_mode = preg_replace('/\,*ONLY_FULL_GROUP_BY/', '', $sql_mode);
 		$this->db->query("SET sql_mode='{$temp_mode}'");
-		$get = $this->db->get();
+		$get = $this->db->get();		
 		$this->db->query("SET sql_mode='{$sql_mode}'");
 		return $get;
 	}
@@ -411,13 +411,15 @@ class Penduduk_model extends MY_Model {
 			(DATE_FORMAT(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(u.tanggallahir)), '%Y')+0) AS umur,
 			(DATE_FORMAT(FROM_DAYS(TO_DAYS(log.tgl_peristiwa)-TO_DAYS(u.tanggallahir)), '%Y')+0) AS umur_pada_peristiwa,
 			x.nama AS sex, sd.nama AS pendidikan_sedang, n.nama AS pendidikan, p.nama AS pekerjaan, g.nama AS agama, m.nama AS gol_darah, hub.nama AS hubungan, b.no_kk AS no_rtm, b.id AS id_rtm
-		");
-
-		$this->db->from("($query_dasar) as u");
+		");        
+		$this->db->from("($query_dasar) as u");        
 		$this->lookup_ref_penduduk();
 		$this->order_by_list($order_by);
-
-		$data = $this->temp_mode_get()->result_array();
+		// di mysql 8.0.25
+        $compiled = str_replace(' as u)',' )as u',$this->db->get_compiled_select());
+        $data = $this->db->query($compiled)->result_array();
+        $this->db->from("($compiled) as uu");
+		$data = $this->temp_mode_get()->result_array();		
 
 		//Formating Output
 		$j = $offset;
