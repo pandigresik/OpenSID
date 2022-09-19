@@ -64,7 +64,7 @@ if ($_SESSION['fm_key']) {
 	*/
 
 	$folder_app = strtolower(substr($_SERVER['REQUEST_URI'], 0, strrpos($_SERVER['REQUEST_URI'],'/assets')));
-
+	$namaDesa = basename($_SERVER['DOCUMENT_ROOT']);
 	$config = array(
 
 			/*
@@ -76,8 +76,8 @@ if ($_SESSION['fm_key']) {
 			|
 			*/
 
-			'base_url' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && ! in_array(strtolower($_SERVER['HTTPS']), array( 'off', 'no' ))) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $folder_app . '/assets',
-
+			// 'base_url' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && ! in_array(strtolower($_SERVER['HTTPS']), array( 'off', 'no' ))) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $folder_app . '/assets',
+			'base_url' => ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && ! in_array(strtolower($_SERVER['HTTPS']), array( 'off', 'no' ))) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $folder_app ,
 			/*
 			|--------------------------------------------------------------------------
 			| path from base_url to base of upload folder
@@ -86,7 +86,8 @@ if ($_SESSION['fm_key']) {
 			| with start and final /
 			|
 			*/
-			'upload_dir' => '/../desa/upload/media/',
+			// 'upload_dir' => '/../desa/upload/media/',
+			'upload_dir' => '/desa/upload/media/',
 			/*
 			|--------------------------------------------------------------------------
 			| relative path from filemanager folder to upload folder
@@ -95,7 +96,7 @@ if ($_SESSION['fm_key']) {
 			| with final /
 			|
 			*/
-			'current_path' => '../../desa/upload/media/',
+			'current_path' => "../../../sites-desa/$namaDesa/desa/upload/media/",
 
 			/*
 			|--------------------------------------------------------------------------
@@ -106,7 +107,8 @@ if ($_SESSION['fm_key']) {
 			| DO NOT put inside upload folder
 			|
 			*/
-			'thumbs_base_path' => '../../desa/upload/thumbs/',
+			'thumbs_base_path' => "../../../sites-desa/$namaDesa/desa/upload/thumbs/",
+			// 'thumbs_base_path' => '../../desa/upload/thumbs/',
 
 			/*
 			|--------------------------------------------------------------------------

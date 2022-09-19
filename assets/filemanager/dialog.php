@@ -1078,9 +1078,10 @@ $files = $sorted;
                         $mini_src = $src_thumb = $config['ftp_base_url'].$config['ftp_thumbs_dir'].$subdir. $file;
                         $creation_thumb_path = "/".$config['ftp_base_folder'].$config['ftp_thumbs_dir'].$subdir. $file;
                     }else{
-
-                        $creation_thumb_path = $mini_src = $src_thumb = $thumbs_path. $file;
-
+                        
+                        // $creation_thumb_path = $mini_src = $src_thumb = $thumbs_path. $file;
+                        $creation_thumb_path = $mini_src = $src_thumb = $cur_dir_thumb. $file;                       
+                    
                         if (!file_exists($src_thumb)) {
                             if (!create_img($file_path, $creation_thumb_path, 122, 91, 'crop', $config)) {
                                 $src_thumb = $mini_src = "";

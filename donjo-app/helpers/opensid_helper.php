@@ -219,7 +219,7 @@ function favico_desa()
  */
 function gambar_desa($nama_file, $type = false, $file = false)
 {
-    if (is_file(APPPATH . '../' . LOKASI_LOGO_DESA . $nama_file)) {
+    if (is_file(FCPATH . '../' . LOKASI_LOGO_DESA . $nama_file)) {
         return $logo_desa = ($file ? APPPATH . '../' : base_url()) . LOKASI_LOGO_DESA . $nama_file;
     }
 

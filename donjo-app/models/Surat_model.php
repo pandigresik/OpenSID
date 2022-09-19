@@ -616,7 +616,7 @@ class Surat_model extends CI_Model
 
     private function sisipkan_logo($nama_logo, $buffer)
     {
-        $file_logo = APPPATH . '../' . LOKASI_LOGO_DESA . $nama_logo;
+        $file_logo = FCPATH . LOKASI_LOGO_DESA . $nama_logo;
         if (! is_file($file_logo)) {
             return $buffer;
         }
