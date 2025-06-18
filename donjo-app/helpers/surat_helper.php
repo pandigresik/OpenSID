@@ -39,6 +39,53 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
 use Spipu\Html2Pdf\Html2Pdf;
 
+
+/**
+ * SuratExportDesa
+ *
+ * Mengembalikan path surat ubahan desa apabila ada.
+ * Cek folder semua komponen surat dulu, baru cek folder export
+ *
+ * @param mixed $nama_surat
+ */
+function SuratExportDesa(string $nama_surat): string
+{
+    $surat_export_desa = LOKASI_SURAT_DESA . $nama_surat . '/' . $nama_surat . '.rtf';
+    if (is_file($surat_export_desa)) {
+        return $surat_export_desa;
+    }
+
+    $surat_export_desa = LOKASI_SURAT_EXPORT_DESA . $nama_surat . '.rtf';
+    if (is_file($surat_export_desa)) {
+        return $surat_export_desa;
+    }
+
+    return '';
+}
+
+/**
+ * SuratExport
+ *
+ * Mengembalikan path surat export apabila ada, dengan prioritas:
+ *    1. surat export ubahan desa
+ *    2. surat export asli SID
+ *
+ * @param mixed $nama_surat
+ */
+function SuratExport($nama_surat): string
+{
+    if (SuratExportDesa($nama_surat) != '') {
+        return SuratExportDesa($nama_surat);
+    }
+
+    $file = "template-surat/{$nama_surat}/{$nama_surat}.rtf";
+    if (is_file(FCPATH . $file)) {
+        return $file;
+    }
+
+    return '';
+}
+
 function ikut_case(?string $format = null, ?string $str = null): string
 {
     $str = strtolower($str);

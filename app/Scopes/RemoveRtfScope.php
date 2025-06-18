@@ -51,6 +51,7 @@ class RemoveRtfScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        return $builder->whereNotIn($model->getTable() . '.jenis', FormatSurat::RTF);
+        return $builder;
+        //return $builder->whereNotIn($model->getTable() . '.jenis', FormatSurat::RTF);
     }
 }

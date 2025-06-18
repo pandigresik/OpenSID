@@ -58,6 +58,8 @@ class FormatSurat extends BaseModel
     public const FAVORIT_DISABLE       = 0;
     public const TINYMCE_SISTEM        = 3;
     public const TINYMCE_DESA          = 4;
+    public const RTF_SISTEM            = 1;
+    public const RTF_DESA              = 2;
     public const RTF                   = [1, 2];
     public const TINYMCE               = [3, 4];
     public const SISTEM                = [3];
@@ -85,6 +87,8 @@ class FormatSurat extends BaseModel
     public const JENIS_SURAT = [
         self::TINYMCE_SISTEM => 'Surat Sistem',
         self::TINYMCE_DESA   => 'Surat [Desa]',
+        self::RTF_SISTEM         => 'Surat RTF Sistem',
+        self::RTF_DESA         => 'Surat RTF [Desa]',
     ];
 
     /**

@@ -201,7 +201,10 @@ define('LOKASI_LOGO_DESA', 'desa/logo/');
 define('LOKASI_ARSIP', 'desa/arsip/');
 define('LOKASI_CACHE', 'desa/cache/');
 define('LOKASI_CONFIG_DESA', 'desa/config/');
+define('LOKASI_SURAT_DESA', 'desa/template-surat/');
 define('LOKASI_LAMPIRAN_SURAT_DESA', 'desa/template-surat/lampiran/');
+define('LOKASI_SURAT_FORM_DESA', 'desa/template-surat/form/'); // TODO:: Cek ini!!!
+define('LOKASI_SURAT_EXPORT_DESA', 'desa/template-surat/export/'); // TODO:: Cek ini!!!
 define('LOKASI_LAMPIRAN_SURAT_DINAS_DESA', 'desa/template-surat/surat-dinas/lampiran/');
 define('LOKASI_TEMA_DESA', 'desa/themes/');
 define('LOKASI_UPLOAD', 'desa/upload/');

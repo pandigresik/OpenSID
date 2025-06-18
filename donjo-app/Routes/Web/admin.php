@@ -693,6 +693,9 @@ Route::group('surat', static function (): void {
     Route::get('/list_penduduk_ajax', 'Surat@list_penduduk_ajax')->name('surat.list_penduduk_ajax');
     Route::get('/list_penduduk_bersurat_ajax', 'Surat@list_penduduk_bersurat_ajax')->name('surat.list_penduduk_bersurat_ajax');
     Route::get('/apipenduduksurat', 'Surat@apipenduduksurat')->name('surat.apipenduduksurat');
+    Route::match(['GET','POST'],'doc/{url}', 'Surat@doc');
+    Route::match(['GET','POST'],'cetak_doc/{url}', 'Surat@cetak_doc');
+    Route::match(['GET','POST'],'periksa_doc/{url}', 'Surat@periksa_doc');
 });
 
 Route::group('datasuratpenduduk', static function (): void {

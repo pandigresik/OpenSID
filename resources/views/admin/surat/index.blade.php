@@ -17,7 +17,8 @@
     @include('admin.layouts.components.notifikasi')
     <div class="box box-info">
         <div class="box-header with-border">
-            <select id="cetak-surat" name="cetak_surat" class="form-control input-sm" data-placeholder="--- Cari Judul Surat Yang Akan Dicetak ---"></select>
+            <select id="cetak-surat" name="cetak_surat" class="form-control input-sm"
+                data-placeholder="--- Cari Judul Surat Yang Akan Dicetak ---"></select>
         </div>
 
         {!! form_open($formAction, 'id="validasi"') !!}
@@ -29,6 +30,7 @@
                             <th class="padat">NO</th>
                             <th class="aksi">AKSI</th>
                             <th>NAMA SURAT</th>
+                            <th>JENIS</th>
                             <th class="padat">KODE / KLASIFIKASI</th>
                             <th class="padat">LAMPIRAN</th>
                         </tr>
@@ -88,6 +90,12 @@
                     {
                         data: 'nama',
                         name: 'nama',
+                        searchable: true,
+                        orderable: true
+                    },
+                    {
+                        data: 'jenis',
+                        name: 'jenis',
                         searchable: true,
                         orderable: true
                     },
