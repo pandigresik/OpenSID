@@ -603,7 +603,7 @@ class TinyMCE
         // Kepala Desa
         $kades = Pamong::kepalaDesa()->first();
         if ($kades) {
-            $atas_nama[''] = $kades->pamong_jabatan . ' ' . $config->nama_desa;
+            $atas_nama[''] = $kades->nama_jabatan . ' ' . $config->nama_desa;
 
             // Sekretaris Desa
             $sekdes = Pamong::ttd('a.n')->first();

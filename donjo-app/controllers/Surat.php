@@ -720,9 +720,9 @@ class Surat extends Admin_Controller
         $data['input']['nomor']     = $data['surat_terakhir']['no_surat_berikutnya'];
         $data['format_nomor_surat'] = FormatSurat::format_penomoran_surat($data);
 
-        $penandatangan     = $this->tinymce->formPenandatangan();
+        $penandatangan     = $this->tinymce->formPenandatangan();        
         $data['pamong']    = $penandatangan['penandatangan'];
-        $data['atas_nama'] = $penandatangan['atas_nama'];
+        $data['atas_nama'] = $penandatangan['atas_nama'];        
     }
 
     public function favorit($id = null, $val = 0): void

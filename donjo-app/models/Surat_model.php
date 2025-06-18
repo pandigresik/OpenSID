@@ -580,18 +580,18 @@ class Surat_model extends MY_Model
 
         //Data penandatangan
         $kades = Pamong::kepalaDesa()->first();
-
+        log_message('error', 'Kepala Desa: ' . json_encode($kades));
         $ttd         = $input['pilih_atas_nama'];
-        $atas_nama   = $kades->pamong_jabatan . ' ' . $nama_desa;
-        $jabatan     = $kades->pamong_jabatan;
+        $atas_nama   = $kades->nama_jabatan . ' ' . $nama_desa;
+        $jabatan     = $kades->nama_jabatan;
         $nama_pamong = $kades->pamong_nama;
         $nip_pamong  = $kades->pamong_nip;
         $niap_pamong = $kades->pamong_niap;
 
         $sekdes = Pamong::ttd('a.n')->first();
         if (preg_match('/a.n/i', $ttd)) {
-            $atas_nama   = 'a.n ' . $atas_nama . ' \par ' . $sekdes->pamong_jabatan;
-            $jabatan     = $sekdes->pamong_jabatan;
+            $atas_nama   = 'a.n ' . $atas_nama . ' \par ' . $sekdes->nama_jabatan;
+            $jabatan     = $sekdes->nama_jabatan;
             $nama_pamong = $sekdes->pamong_nama;
             $nip_pamong  = $sekdes->pamong_nip;
             $niap_pamong = $sekdes->pamong_niap;
@@ -599,8 +599,8 @@ class Surat_model extends MY_Model
 
         if (preg_match('/u.b/i', $ttd)) {
             $pamong      = Pamong::ttd('u.b')->find($input['pamong_id']);
-            $atas_nama   = 'a.n ' . $atas_nama . ' \par ' . $sekdes->pamong_jabatan . ' \par  u.b  \par ' . $pamong->jabatan->nama;
-            $jabatan     = $pamong->pamong_jabatan;
+            $atas_nama   = 'a.n ' . $atas_nama . ' \par ' . $sekdes->nama_jabatan . ' \par  u.b  \par ' . $pamong->jabatan->nama;
+            $jabatan     = $pamong->nama_jabatan;
             $nama_pamong = $pamong->pamong_nama;
             $nip_pamong  = $pamong->pamong_nip;
             $niap_pamong = $pamong->pamong_niap;
