@@ -580,7 +580,7 @@ class Surat_model extends MY_Model
 
         //Data penandatangan
         $kades = Pamong::kepalaDesa()->first();
-        log_message('error', 'Kepala Desa: ' . json_encode($kades));
+        
         $ttd         = $input['pilih_atas_nama'];
         $atas_nama   = $kades->nama_jabatan . ' ' . $nama_desa;
         $jabatan     = $kades->nama_jabatan;
