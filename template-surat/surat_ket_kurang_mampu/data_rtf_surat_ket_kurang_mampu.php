@@ -6,7 +6,7 @@
 		$nomor = $i + 1;
 		if ($i < count($anggota))
 		{
-			$nik = trim($anggota[$i],"'");
+			$nik = trim($anggota[$i]['nik'],"'");
 			$array_replace = array(
 	                    "[anggota_no_$nomor]"           => $nomor,
 	                    "[anggota_nik_$nomor]"          => $anggota[$i]['nik'],
